@@ -1,24 +1,21 @@
 class Solution {
     public int firstMissingPositive(int[] nums) {
         int n = nums.length;
-
-        // Step 1: Place each number in its correct position, i.e., nums[i] = i+1
-        for (int i = 0; i < n; i++) {
-            // We only care about numbers in the range 1 to n
-            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
-                // Swap nums[i] with nums[nums[i] - 1]
-                int temp = nums[i];
-                nums[i] = nums[nums[i] - 1];
-                nums[temp - 1] = temp;
+        int[] ans = new int[n+1];
+        for(int i=0;i<n;i++){
+            if(nums[i]>0 && nums[i]<=n){
+                ans[nums[i]] = 1;
             }
         }
-
-        // Step 2: Find the first index where the value is not equal to its index + 1
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != i + 1) {
-                return i + 1;
+        for(int i=1;i<=n;i++){
+            if(ans[i]==0){
+                return i;
             }
         }
-        return n + 1;
+        if(n==1 && (nums[0]==1 && nums[0]==0)){
+            return nums[0]+1;
+            
+        }
+        return n+1;
     }
 }
